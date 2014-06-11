@@ -27,25 +27,28 @@ shinyServer(function(input, output,session) {
 							{
 								if(input$binned)
 								{
-									if(input$cutpoints!="")
-									{
-										cutpoints=eval(parse(text=input$cutpoints))
-										cutpoints=cutpoints[order(cutpoints)]
-										if(any(obs$distance>cutpoints[length(cutpoints)]))
-										{
-											width <- cutpoints[length(cutpoints)]
-											obs<- obs[obs$distance<=cutpoints[length(cutpoints)],]
-										}
-										if(any(obs$distance<cutpoints[1]))
-										{
-											left <- cutpoints[1]
-											obs<- obs[obs$distance>=left,]
-										} 
-										int=cut(obs$distance,cutpoints,right=FALSE)
-										obs$distbegin=cutpoints[as.numeric(int)]
-										obs$distend=cutpoints[as.numeric(int)+1]
-										maxcut <- cutpoints[length(cutpoints)]
-									}
+									input$dobins
+									isolate({
+												if(input$cutpoints!="")
+												{
+													cutpoints=eval(parse(text=input$cutpoints))
+													cutpoints=cutpoints[order(cutpoints)]
+													if(any(obs$distance>cutpoints[length(cutpoints)]))
+													{
+														width <- cutpoints[length(cutpoints)]
+														obs<- obs[obs$distance<=cutpoints[length(cutpoints)],]
+													}
+													if(any(obs$distance<cutpoints[1]))
+													{
+														left <- cutpoints[1]
+														obs<- obs[obs$distance>=left,]
+													} 
+													int=cut(obs$distance,cutpoints,right=FALSE)
+													obs$distbegin=cutpoints[as.numeric(int)]
+													obs$distend=cutpoints[as.numeric(int)+1]
+													maxcut <- cutpoints[length(cutpoints)]
+												 }
+											})
 								}        
 							}
 							if(input$width==0)
