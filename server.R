@@ -138,7 +138,6 @@ shinyServer(function(input, output,session) {
 							t(chitable(gof()$gof$chisquare$chi1$observed, gof()$gof$chisquare$chi1$expected))                
 						}
 					})
-# Once go button pushed output gof chi-square P-value
 			output$P <- renderText( 
 					{
 						if (input$goButton == 0)
