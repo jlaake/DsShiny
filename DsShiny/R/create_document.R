@@ -14,11 +14,11 @@ create_document <- function(type="html")
 #	library(shiny)
 #	library(knitr)
 #	library(rmarkdown)
-	create_knitr(runApp(file.path(system.file(package="mrds"),"shiny")),type=type)
+	create_knitr(runApp(file.path(system.file(package="DsShiny"),"shiny")),type=type)
 }
 create_knitr <- function(output,type="html")
 {
-	shinypath=file.path(system.file(package="mrds"),"shiny")
+	shinypath=file.path(system.file(package="DsShiny"),"shiny")
 	con <- file("data.csv",open="wt")
 	writeLines(output$data,con)
 	close(con)
@@ -33,12 +33,27 @@ create_knitr <- function(output,type="html")
 	writeLines(knitr_string,con)
 	close(con)
 	if(type=="html")
+	{
 		render("distance_knitr.rmd",html_document())
+		file="distance_knitr.html"
+	}
 	else
 	if(type=="pdf")
+	{
 		render("distance_knitr.rmd",pdf_document())
+		file="distance_knitr.pdf"
+	}
 	else
+	{
 		render("distance_knitr.rmd",word_document())
+		file="distance_knitr.docx"
+	}
+	# code from Yihui's animate package
+	if (.Platform$OS.type == 'windows') {
+		try(shell.exec(file))
+	} else if (Sys.info()['sysname'] == 'Darwin') {
+		system(paste('open ', shQuote(file)))
+	} else system(paste('xdg-open ', shQuote(file)))
 }
 
 
