@@ -40,7 +40,7 @@ shinyUI(navbarPage("Shiny Distance",
                                 hr()
                               ),
                               
-                              # Show a plot of the generated distribution
+                              # Show a table of the data
                               mainPanel(dataTableOutput("datatable") )
                             )),
                    tabPanel("Detection Function",titlePanel("Detection Function"),

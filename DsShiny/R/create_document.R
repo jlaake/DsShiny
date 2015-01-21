@@ -11,9 +11,6 @@
 #' @author Jeff Laake
 create_document <- function(type="html")
 {
-#	library(shiny)
-#	library(knitr)
-#	library(rmarkdown)
 	create_knitr(runApp(file.path(system.file(package="DsShiny"),"shiny")),type=type)
 }
 create_knitr <- function(output,type="html")

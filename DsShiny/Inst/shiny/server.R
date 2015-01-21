@@ -289,14 +289,12 @@ output$abundance <- renderText(
   else
   {
     input$goButton
-#    isolate({
       validate(
         need(!is.null(obs()),"Missing observation links file."),
         need(!is.null(samples()),"Missing samples file"),
         need(!is.null(regions()),"Missing regions file")
       )  
       paste(capture.output(print(dht(results()$model,regions(),samples(),obs()))),collapse="\n")
-  #})
   }
 })
 observe({

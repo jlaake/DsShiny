@@ -45,28 +45,3 @@ if(is.null(key))
 return(str)
 }
 
-create_knitr <- function(output,type="html")
-{
-  library(rmarkdown)
-  con <- file("data.csv",open="wt")
-  writeLines(output$data,con)
-  close(con)
-  con <- file("distance_knitr_template.rmd",open="rt")
-  knitr_string <- readLines(con)
-  idx <- grep("ddf_string",knitr_string)
-  knitr_string[idx] <- gsub("ddf_string",output$ddfstring,knitr_string[idx])
-  idx <- grep("bin_string",knitr_string)
-  knitr_string[idx] <- gsub("bin_string",output$binstring,knitr_string[idx])
-  close(con)
-  con <- file("distance_knitr.rmd",open="wt")
-  writeLines(knitr_string,con)
-  close(con)
-  if(type=="html")
-     render("distance_knitr.rmd",html_document())
-  else
-    if(type=="pdf")
-      render("distance_knitr.rmd",pdf_document())
-    else
-      render("distance_knitr.rmd",word_document())
-}
-
