@@ -52,7 +52,11 @@ shinyServer(function(input,output,session) {
           isolate({
             if(input$cutpoints!="")
             {
-              cutpoints=eval(parse(text=input$cutpoints))
+			  if(length(grep(",",input$cutpoints)!=0)&length(grep("c\\(",input$cutpoints))==0)
+				  cutpoints=paste("c(",input$cutpoints,")",collapse="")
+			  else
+				  cutpoints=input$cutpoints
+              cutpoints=eval(parse(text=cutpoints))
               cutpoints=cutpoints[order(cutpoints)]
               if(any(obs$distance>cutpoints[length(cutpoints)]))
               {

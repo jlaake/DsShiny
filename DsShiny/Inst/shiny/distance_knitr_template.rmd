@@ -1,5 +1,5 @@
 ---
-title: "Distance Sampling Analysis - Single Observer"
+title: "Distance Sampling Analysis"
 author: "Your name"
 ---
 
